@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, getAllUsers, updateUserById, getUserById } = require('../service/user.service');
+const { createUser, getAllUsers, updateUserById, getUserById, deleteUserById } = require('../service/user.service');
 const { buildResponse } = require('../helper/buildResponse');
 
 const routeUser = express.Router();
@@ -18,7 +18,6 @@ routeUser.get('/', async (_req, res) => {
     try {
         const data = await getAllUsers();
         buildResponse(200, data, res)
-
     } catch (er) {
         buildResponse(404, er.message, res)
     }
@@ -31,7 +30,6 @@ routeUser.get('/:id', async (req, res) => {
         buildResponse(200, data, res)
     } catch (er) {
         buildResponse(404, er.message, res)
-
     }
 })
 
@@ -46,6 +44,16 @@ routeUser.put('/:id', async (req, res) => {
     }
 })
 
+
+routeUser.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await deleteUserById(id);
+        buildResponse(200, data, res)
+    } catch (er) {
+        buildResponse(404, er.message, res)
+    }
+})
 
 
 module.exports = routeUser;

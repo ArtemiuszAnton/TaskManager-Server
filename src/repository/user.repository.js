@@ -53,9 +53,19 @@ async function updateUserByIdDB(id, name, surname, email, pwd) {
 
 async function deleteUserByIdDB(id) {
     const client = await pool.connect();
-    
+    try {
+        await client.query('BEGIN');
+        const sql = 'DELETE FROM users WHERE id = $1 RETURNING *';
+        const { rows } = await client.query(sql, [id]);
+        await client.query('COMMIT');
+        return rows
+    } catch (er) {
+        await client.query('ROLLBACK');
+        console.log([]);
+        return []
+    }
 }
 
 
 
-module.exports = { createUserDB, getAllUsersDB, updateUserByIdDB, getUserByEmailDB, getUserByIdDB }
+module.exports = { createUserDB, getAllUsersDB, updateUserByIdDB, getUserByEmailDB, getUserByIdDB, deleteUserByIdDB }
