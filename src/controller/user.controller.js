@@ -44,7 +44,6 @@ routeUser.put('/:id', async (req, res) => {
     }
 })
 
-
 routeUser.delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
