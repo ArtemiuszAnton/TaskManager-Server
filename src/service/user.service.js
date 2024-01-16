@@ -1,4 +1,4 @@
-const { createUserDB, getAllUsersDB, updateUserByIdDB, getUserByEmailDB, getUserByIdDB, deleteUserByIdDB } = require('../repository/user.repository');
+const { createUserDB, getAllUsersDB, updateUserByIdDB, getUserByEmailDB, getUserByIdDB, deleteUserByIdDB, changeUserOnReqDB } = require('../repository/user.repository');
 
 async function createUser(name, surname, email, pwd) {
     const foundUser = await getUserByEmailDB(email);
@@ -33,4 +33,10 @@ async function deleteUserById(id) {
     return data
 }
 
-module.exports = { createUser, getAllUsers, updateUserById, getUserById, deleteUserById }
+async function changeUserOnReq(id, body) {
+    const data = await changeUserOnReqDB(id, body);
+    if (!data.length) throw new Error('data not saved');
+    return data
+}
+
+module.exports = { createUser, getAllUsers, updateUserById, getUserById, deleteUserById, changeUserOnReq }

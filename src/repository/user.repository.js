@@ -66,6 +66,23 @@ async function deleteUserByIdDB(id) {
     }
 }
 
+async function changeUserOnReqDB(id, body) {
+    const client = await pool.connect();
+    try {
+        await client.query('BEGIN');
+        const sql_1 = 'SELECT * FROM users WHERE id = $1';
+        const oldUser = (await client.query(sql_1, [id])).rows;
+        const updUser = { ...oldUser[0], ...body }
+        const sql_2 = 'UPDATE users SET name = $2, surname = $3, email = $4, pwd = $5  WHERE id = $1 RETURNING *';
+        const data = (await client.query(sql_2, [id, updUser.name, updUser.surname, updUser.email, updUser.pwd])).rows;
+        await client.query('COMMIT');
+        return data
+    } catch (er) {
+        await client.query('ROLLBACK');
+        console.log([]);
+        return []
+    }
+}
 
 
-module.exports = { createUserDB, getAllUsersDB, updateUserByIdDB, getUserByEmailDB, getUserByIdDB, deleteUserByIdDB }
+module.exports = { createUserDB, getAllUsersDB, updateUserByIdDB, getUserByEmailDB, getUserByIdDB, deleteUserByIdDB, changeUserOnReqDB }

@@ -1,5 +1,5 @@
 const express = require('express');
-const { createUser, getAllUsers, updateUserById, getUserById, deleteUserById } = require('../service/user.service');
+const { createUser, getAllUsers, updateUserById, getUserById, deleteUserById, changeUserOnReq } = require('../service/user.service');
 const { buildResponse } = require('../helper/buildResponse');
 const { isValidId } = require('../helper/validation');
 const routeUser = express.Router();
@@ -49,6 +49,17 @@ routeUser.delete('/:id', isValidId, async (req, res) => {
         const { id } = req.params;
         const data = await deleteUserById(id);
         buildResponse(200, data, res)
+    } catch (er) {
+        buildResponse(404, er.message, res)
+    }
+})
+
+routeUser.patch('/:id', isValidId, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const body = req.body;
+        const newUser = await changeUserOnReq(id, body);
+        buildResponse(200, newUser, res)
     } catch (er) {
         buildResponse(404, er.message, res)
     }
