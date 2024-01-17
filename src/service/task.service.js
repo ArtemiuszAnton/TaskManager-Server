@@ -1,33 +1,39 @@
-const { createTaskDB, getAllTasksDB, updateTaskDB,deleteTaskDB,getTaskByIdDB } = require('../repository/task.repository');
+const { createTaskDB, getAllTasksDB, updateTaskDB, deleteTaskDB, getTaskByIdDB, changeTaskOnReqDB } = require('../repository/task.repository');
 
 async function createTask(task, user_id) {
     const data = await createTaskDB(task, user_id);
-    if(!data.length) throw new Error('data not created');
+    if (!data.length) throw new Error('data not created');
     return data
 }
 
 async function getAllTasks() {
     const data = await getAllTasksDB();
-    if(!data.length) throw new Error('data not found');
+    if (!data.length) throw new Error('data not found');
     return data
 }
 
 async function updateTask(id, task, user_id) {
     const data = await updateTaskDB(id, task, user_id);
-    if(!data.length) throw new Error('data not created');
+    if (!data.length) throw new Error('data not created');
     return data
 }
 
 async function deleteTask(id) {
     const data = await deleteTaskDB(id);
-    if(!data.length) throw new Error('data not created');
+    if (!data.length) throw new Error('data not created');
     return data
 }
 
 async function getTaskById(id) {
     const data = await getTaskByIdDB(id);
-    if(!data.length) throw new Error('data not created');
+    if (!data.length) throw new Error('data not created');
     return data
 }
 
-module.exports = { createTask, getAllTasks, updateTask, deleteTask, getTaskById }
+async function changeTaskOnReq(id, body) {
+    const data = await changeTaskOnReqDB(id, body);
+    if (!data.length) throw new Error('data not created');
+    return data
+}
+
+module.exports = { createTask, getAllTasks, updateTask, deleteTask, getTaskById, changeTaskOnReq }
