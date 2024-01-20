@@ -22,12 +22,8 @@ async function getUserByEmailDB(email) {
     return rows
 }
 
-async function checkUserApiDB(pwd) {
-    const client = await pool.connect();
-    const sql = 'SELECT * FROM users WHERE pwd = $1';
-    const {rows} = await client.query(sql,[pwd]);
-    return rows
-}
 
 
-module.exports = { createUserApiDB, getUserByEmailDB, checkUserApiDB }
+
+
+module.exports = { createUserApiDB, getUserByEmailDB }
