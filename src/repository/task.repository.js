@@ -70,7 +70,6 @@ async function changeTaskOnReqDB(id, body) {
         return data
     } catch (er) {
         await client.query('ROLLBACK');
-        console.log([]);
         return []
     }
 }
