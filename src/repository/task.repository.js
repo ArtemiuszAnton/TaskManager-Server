@@ -64,7 +64,7 @@ async function changeTaskOnReqDB(id, body) {
         const sql_1 = 'SELECT * FROM tasks WHERE id = $1';
         const oldTask = (await client.query(sql_1, [id])).rows;
         const updTask = { ...oldTask[0], ...body }
-        const sql_2 = 'UPDATE tasks SET task = $2, user_id = $3, WHERE id = $1 RETURNING *';
+        const sql_2 = 'UPDATE tasks SET task = $2, user_id = $3 WHERE id = $1 RETURNING *';
         const data = (await client.query(sql_2, [id, updTask.task, updTask.user_id])).rows;
         await client.query('COMMIT');
         return data
