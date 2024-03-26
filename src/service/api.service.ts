@@ -1,5 +1,5 @@
-const { createUserApiDB, getUserByEmailDB, authUserApiDB } = require('../repository/api.repository');
-const bcrypt = require('bcrypt');
+import { createUserApiDB, getUserByEmailDB } from '../repository/api.repository';
+import bcrypt from 'bcrypt';
 
 const saltround = 3;
 
@@ -22,4 +22,4 @@ async function authUserApi(email, pwd) {
     return findEmail
 }
 
-module.exports = { createUserApi, authUserApi }
+export { createUserApi, authUserApi }

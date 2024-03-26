@@ -1,4 +1,4 @@
-const pool = require('../db');
+import pool from '../db';
 
 async function createTaskDB(task, user_id) {
     const client = await pool.connect();
@@ -9,7 +9,7 @@ async function createTaskDB(task, user_id) {
         const { rows } = await client.query(sql, [task, user_id]);
         await client.query('COMMIT');
         return rows
-    } catch (er) {
+    } catch (er:any) {
         await client.query('ROLLBACK');
         return []
     }
@@ -37,7 +37,7 @@ async function updateTaskDB(id, task, user_id) {
         const { rows } = await client.query(sql, [task, user_id, id]);
         await client.query('COMMIT');
         return rows
-    } catch (er) {
+    } catch (er: any) {
         await client.query('ROLLBACK');
         return []
     }
@@ -51,7 +51,7 @@ async function deleteTaskDB(id) {
         const { rows } = await client.query(sql, [id]);
         await client.query('COMMIT');
         return rows
-    } catch (er) {
+    } catch (er: any) {
         await client.query('ROLLBACK');
         return []
     }
@@ -68,10 +68,10 @@ async function changeTaskOnReqDB(id, body) {
         const data = (await client.query(sql_2, [id, updTask.task, updTask.user_id])).rows;
         await client.query('COMMIT');
         return data
-    } catch (er) {
+    } catch (er: any) {
         await client.query('ROLLBACK');
         return []
     }
 }
 
-module.exports = { createTaskDB, getAllTasksDB, updateTaskDB, deleteTaskDB, getTaskByIdDB, changeTaskOnReqDB }
+export { createTaskDB, getAllTasksDB, updateTaskDB, deleteTaskDB, getTaskByIdDB, changeTaskOnReqDB }

@@ -1,4 +1,4 @@
-const { createTaskDB, getAllTasksDB, updateTaskDB, deleteTaskDB, getTaskByIdDB, changeTaskOnReqDB } = require('../repository/task.repository');
+import { createTaskDB, getAllTasksDB, updateTaskDB, deleteTaskDB, getTaskByIdDB, changeTaskOnReqDB } from '../repository/task.repository';
 
 async function createTask(task, user_id) {
     const data = await createTaskDB(task, user_id);
@@ -36,4 +36,4 @@ async function changeTaskOnReq(id, body) {
     return data
 }
 
-module.exports = { createTask, getAllTasks, updateTask, deleteTask, getTaskById, changeTaskOnReq }
+export { createTask, getAllTasks, updateTask, deleteTask, getTaskById, changeTaskOnReq }

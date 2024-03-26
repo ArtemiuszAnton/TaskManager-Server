@@ -1,7 +1,8 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
 
-const { app } = require('./src/app');
+import { app } from './src/app';
 
 app.listen(process.env.PORT, () => {
     console.log('Server is run');
 })
+

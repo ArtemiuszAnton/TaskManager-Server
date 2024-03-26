@@ -1,4 +1,4 @@
-const pool = require('../db');
+import pool from '../db';
 
 async function createUserApiDB(name, surname, email, pwd) {
     const client = await pool.connect();
@@ -26,4 +26,4 @@ async function getUserByEmailDB(email) {
 
 
 
-module.exports = { createUserApiDB, getUserByEmailDB }
+export { createUserApiDB, getUserByEmailDB }

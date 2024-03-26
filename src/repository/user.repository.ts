@@ -1,4 +1,4 @@
-const pool = require('../db');
+import pool from '../db';
 
 async function createUserDB(name, surname, email, pwd) {
     const client = await pool.connect();
@@ -85,4 +85,4 @@ async function changeUserOnReqDB(id, body) {
 }
 
 
-module.exports = { createUserDB, getAllUsersDB, updateUserByIdDB, getUserByEmailDB, getUserByIdDB, deleteUserByIdDB, changeUserOnReqDB }
+export { createUserDB, getAllUsersDB, updateUserByIdDB, getUserByEmailDB, getUserByIdDB, deleteUserByIdDB, changeUserOnReqDB }
